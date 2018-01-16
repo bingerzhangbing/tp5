@@ -1,0 +1,36 @@
+{extend name="public/base_test" /}
+
+{block name="title"}<title>后台首页</title>{/block}
+
+{block name="pjax_container"}
+
+<script>
+$(function () {
+    var loginLogLineJson = {$loginLogLineJson};
+    var loginline = document.getElementById('login-line').getContext('2d');
+    new Chart(loginline, {
+        type: 'line',
+        data: loginLogLineJson,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+    
+    var groupPieJson = {$groupPieJson};
+    var userpie = document.getElementById('user-pie').getContext('2d');
+    new Chart(userpie, {
+        type: 'pie',
+        data: groupPieJson,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+    
+    {if condition=" $rest_login == 1 "}
+    restlogin('{$rest_login_info}');   //登录超时
+    {/if}
+});
+</script>
+{/block}
